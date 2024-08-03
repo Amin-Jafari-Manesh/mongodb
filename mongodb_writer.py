@@ -6,8 +6,8 @@ from pymongo import MongoClient
 db_config = {
     'PASS': environ.get('PASS', ''),
     'DOMAIN': environ.get('DOMAIN', ''),
-    'HASH_SIZE': environ.get('HASH_SIZE', ''),
-    'RECORDS': environ.get('RECORDS', ''),
+    'HASH_SIZE': int(environ.get('HASH_SIZE', '')),
+    'RECORDS': int(environ.get('RECORDS', '')),
 }
 
 
@@ -46,3 +46,6 @@ def mongo_write_hash(size: int = 100) -> bool:
             db.hashes.insert_one({'hash': generate_random_hash(db_config['HASH_SIZE'])})
         return True
     return False
+
+if __name__ == '__main__':
+    mongo_write_hash(db_config['RECORDS'])
