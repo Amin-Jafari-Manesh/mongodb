@@ -44,7 +44,6 @@ def mongo_write_hash(size: int = 100) -> bool:
             serverSelectionTimeoutMS=5000)
         db = client.db
         for _ in range(size):
-            logging.info(generate_random_hash(db_config['HASH_SIZE']))
             db.hashes.insert_one({'hash': generate_random_hash(db_config['HASH_SIZE'])})
         return True
     return False
