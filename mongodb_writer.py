@@ -2,6 +2,7 @@ import logging
 from os import environ
 from pymongo import MongoClient
 
+logging.basicConfig(level=logging.INFO)
 
 db_config = {
     'PASS': environ.get('PASS', ''),
@@ -47,5 +48,9 @@ def mongo_write_hash(size: int = 100) -> bool:
         return True
     return False
 
+
 if __name__ == '__main__':
-    mongo_write_hash(db_config['RECORDS'])
+    if mongo_write_hash(db_config['RECORDS']):
+        logging.info("Hashes successfully written to the database.")
+    else:
+        logging.error("Failed to write hashes to the database.")
